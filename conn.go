@@ -69,11 +69,14 @@ type Client struct {
 	onEventChannelUnban                                     func(event EventChannelUnban)
 	onEventChannelModeratorAdd                              func(event EventChannelModeratorAdd)
 	onEventChannelModeratorRemove                           func(event EventChannelModeratorRemove)
+	onEventChannelVIPAdd                                    func(event EventChannelVIPAdd)
+	onEventChannelVIPRemove                                 func(event EventChannelVIPRemove)
 	onEventChannelChannelPointsCustomRewardAdd              func(event EventChannelChannelPointsCustomRewardAdd)
 	onEventChannelChannelPointsCustomRewardUpdate           func(event EventChannelChannelPointsCustomRewardUpdate)
 	onEventChannelChannelPointsCustomRewardRemove           func(event EventChannelChannelPointsCustomRewardRemove)
 	onEventChannelChannelPointsCustomRewardRedemptionAdd    func(event EventChannelChannelPointsCustomRewardRedemptionAdd)
 	onEventChannelChannelPointsCustomRewardRedemptionUpdate func(event EventChannelChannelPointsCustomRewardRedemptionUpdate)
+	onEventChannelChannelPointsAutomaticRewardRedemptionAdd func(event EventChannelChannelPointsAutomaticRewardRedemptionAdd)
 	onEventChannelPollBegin                                 func(event EventChannelPollBegin)
 	onEventChannelPollProgress                              func(event EventChannelPollProgress)
 	onEventChannelPollEnd                                   func(event EventChannelPollEnd)
@@ -103,6 +106,11 @@ type Client struct {
 	onEventChannelShoutoutCreate                            func(event EventChannelShoutoutCreate)
 	onEventChannelShoutoutReceive                           func(event EventChannelShoutoutReceive)
 	onEventChannelModerate                                  func(event EventChannelModerate)
+	onEventChannelAdBreakBegin                              func(event EventChannelAdBreakBegin)
+	onEventChannelWarningAcknowledge                        func(event EventChannelWarningAcknowledge)
+	onEventChannelWarningSend                               func(event EventChannelWarningSend)
+	onEventChannelUnbanRequestCreate                        func(event EventChannelUnbanRequestCreate)
+	onEventChannelUnbanRequestResolve                       func(event EventChannelUnbanRequestResolve)
 }
 
 func NewClient() *Client {
@@ -304,6 +312,10 @@ func (c *Client) handleNotification(message NotificationMessage) error {
 		callFunc(c.onEventChannelModeratorAdd, *event)
 	case *EventChannelModeratorRemove:
 		callFunc(c.onEventChannelModeratorRemove, *event)
+	case *EventChannelVIPAdd:
+		callFunc(c.onEventChannelVIPAdd, *event)
+	case *EventChannelVIPRemove:
+		callFunc(c.onEventChannelVIPRemove, *event)
 	case *EventChannelChannelPointsCustomRewardAdd:
 		callFunc(c.onEventChannelChannelPointsCustomRewardAdd, *event)
 	case *EventChannelChannelPointsCustomRewardUpdate:
@@ -314,6 +326,8 @@ func (c *Client) handleNotification(message NotificationMessage) error {
 		callFunc(c.onEventChannelChannelPointsCustomRewardRedemptionAdd, *event)
 	case *EventChannelChannelPointsCustomRewardRedemptionUpdate:
 		callFunc(c.onEventChannelChannelPointsCustomRewardRedemptionUpdate, *event)
+	case *EventChannelChannelPointsAutomaticRewardRedemptionAdd:
+		callFunc(c.onEventChannelChannelPointsAutomaticRewardRedemptionAdd, *event)
 	case *EventChannelPollBegin:
 		callFunc(c.onEventChannelPollBegin, *event)
 	case *EventChannelPollProgress:
@@ -372,6 +386,16 @@ func (c *Client) handleNotification(message NotificationMessage) error {
 		callFunc(c.onEventChannelShoutoutReceive, *event)
 	case *EventChannelModerate:
 		callFunc(c.onEventChannelModerate, *event)
+	case *EventChannelAdBreakBegin:
+		callFunc(c.onEventChannelAdBreakBegin, *event)
+	case *EventChannelWarningAcknowledge:
+		callFunc(c.onEventChannelWarningAcknowledge, *event)
+	case *EventChannelWarningSend:
+		callFunc(c.onEventChannelWarningSend, *event)
+	case *EventChannelUnbanRequestCreate:
+		callFunc(c.onEventChannelUnbanRequestCreate, *event)
+	case *EventChannelUnbanRequestResolve:
+		callFunc(c.onEventChannelUnbanRequestResolve, *event)
 	default:
 		c.onError(fmt.Errorf("unknown event type %s", subscription.Type))
 	}
@@ -477,6 +501,14 @@ func (c *Client) OnEventChannelModeratorRemove(callback func(event EventChannelM
 	c.onEventChannelModeratorRemove = callback
 }
 
+func (c *Client) OnEventChannelVIPAdd(callback func(event EventChannelVIPAdd)) {
+	c.onEventChannelVIPAdd = callback
+}
+
+func (c *Client) OnEventChannelVIPRemove(callback func(event EventChannelVIPRemove)) {
+	c.onEventChannelVIPRemove = callback
+}
+
 func (c *Client) OnEventChannelChannelPointsCustomRewardAdd(callback func(event EventChannelChannelPointsCustomRewardAdd)) {
 	c.onEventChannelChannelPointsCustomRewardAdd = callback
 }
@@ -495,6 +527,10 @@ func (c *Client) OnEventChannelChannelPointsCustomRewardRedemptionAdd(callback f
 
 func (c *Client) OnEventChannelChannelPointsCustomRewardRedemptionUpdate(callback func(event EventChannelChannelPointsCustomRewardRedemptionUpdate)) {
 	c.onEventChannelChannelPointsCustomRewardRedemptionUpdate = callback
+}
+
+func (c *Client) OnEventChannelChannelPointsAutomaticRewardRedemptionAdd(callback func(event EventChannelChannelPointsAutomaticRewardRedemptionAdd)) {
+	c.onEventChannelChannelPointsAutomaticRewardRedemptionAdd = callback
 }
 
 func (c *Client) OnEventChannelPollBegin(callback func(event EventChannelPollBegin)) {
@@ -611,4 +647,24 @@ func (c *Client) OnEventChannelShoutoutReceive(callback func(event EventChannelS
 
 func (c *Client) OnEventChannelModerate(callback func(event EventChannelModerate)) {
 	c.onEventChannelModerate = callback
+}
+
+func (c *Client) OnEventChannelAdBreakBegin(callback func(event EventChannelAdBreakBegin)) {
+	c.onEventChannelAdBreakBegin = callback
+}
+
+func (c *Client) OnEventChannelWarningAcknowledge(callback func(event EventChannelWarningAcknowledge)) {
+	c.onEventChannelWarningAcknowledge = callback
+}
+
+func (c *Client) OnEventChannelWarningSend(callback func(event EventChannelWarningSend)) {
+	c.onEventChannelWarningSend = callback
+}
+
+func (c *Client) OnEventChannelUnbanRequestCreate(callback func(event EventChannelUnbanRequestCreate)) {
+	c.onEventChannelUnbanRequestCreate = callback
+}
+
+func (c *Client) OnEventChannelUnbanRequestResolve(callback func(event EventChannelUnbanRequestResolve)) {
+	c.onEventChannelUnbanRequestResolve = callback
 }

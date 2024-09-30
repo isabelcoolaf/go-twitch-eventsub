@@ -29,12 +29,15 @@ var (
 
 	SubChannelModeratorAdd    EventSubscription = "channel.moderator.add"
 	SubChannelModeratorRemove EventSubscription = "channel.moderator.remove"
+	SubChannelVIPAdd          EventSubscription = "channel.vip.add"
+	SubChannelVIPRemove       EventSubscription = "channel.vip.remove"
 
 	SubChannelChannelPointsCustomRewardAdd              EventSubscription = "channel.channel_points_custom_reward.add"
 	SubChannelChannelPointsCustomRewardUpdate           EventSubscription = "channel.channel_points_custom_reward.update"
 	SubChannelChannelPointsCustomRewardRemove           EventSubscription = "channel.channel_points_custom_reward.remove"
 	SubChannelChannelPointsCustomRewardRedemptionAdd    EventSubscription = "channel.channel_points_custom_reward_redemption.add"
 	SubChannelChannelPointsCustomRewardRedemptionUpdate EventSubscription = "channel.channel_points_custom_reward_redemption.update"
+	SubChannelChannelPointsAutomaticRewardRedemptionAdd EventSubscription = "channel.channel_points_automatic_reward_redemption.add"
 
 	SubChannelPollBegin    EventSubscription = "channel.poll.begin"
 	SubChannelPollProgress EventSubscription = "channel.poll.progress"
@@ -75,6 +78,14 @@ var (
 	SubChannelShoutoutReceive EventSubscription = "channel.shoutout.receive"
 
 	SubChannelModerate EventSubscription = "channel.moderate"
+
+	SubChannelAdBreakBegin EventSubscription = "channel.ad_break.begin"
+
+	SubChannelWarningAcknowledge EventSubscription = "channel.warning.acknowledge"
+	SubChannelWarningSend        EventSubscription = "channel.warning.send"
+
+	SubChannelUnbanRequestCreate  EventSubscription = "channel.unban_request.create"
+	SubChannelUnbanRequestResolve EventSubscription = "channel.unban_request.resolve"
 
 	subMetadata = map[EventSubscription]subscriptionMetadata{
 		SubChannelUpdate: {
@@ -125,6 +136,14 @@ var (
 			Version:  "1",
 			EventGen: zeroPtrGen[EventChannelModeratorRemove](),
 		},
+		SubChannelVIPAdd: {
+			Version:  "1",
+			EventGen: zeroPtrGen[EventChannelVIPAdd](),
+		},
+		SubChannelVIPRemove: {
+			Version:  "1",
+			EventGen: zeroPtrGen[EventChannelVIPRemove](),
+		},
 		SubChannelChannelPointsCustomRewardAdd: {
 			Version:  "1",
 			EventGen: zeroPtrGen[EventChannelChannelPointsCustomRewardAdd](),
@@ -144,6 +163,10 @@ var (
 		SubChannelChannelPointsCustomRewardRedemptionUpdate: {
 			Version:  "1",
 			EventGen: zeroPtrGen[EventChannelChannelPointsCustomRewardRedemptionUpdate](),
+		},
+		SubChannelChannelPointsAutomaticRewardRedemptionAdd: {
+			Version:  "1",
+			EventGen: zeroPtrGen[EventChannelChannelPointsAutomaticRewardRedemptionAdd](),
 		},
 		SubChannelPollBegin: {
 			Version:  "1",
@@ -260,6 +283,26 @@ var (
 		SubChannelModerate: {
 			Version:  "2",
 			EventGen: zeroPtrGen[EventChannelModerate](),
+		},
+		SubChannelAdBreakBegin: {
+			Version:  "1",
+			EventGen: zeroPtrGen[EventChannelAdBreakBegin](),
+		},
+		SubChannelWarningAcknowledge: {
+			Version:  "1",
+			EventGen: zeroPtrGen[EventChannelWarningAcknowledge](),
+		},
+		SubChannelWarningSend: {
+			Version:  "1",
+			EventGen: zeroPtrGen[EventChannelWarningSend](),
+		},
+		SubChannelUnbanRequestCreate: {
+			Version:  "1",
+			EventGen: zeroPtrGen[EventChannelUnbanRequestCreate](),
+		},
+		SubChannelUnbanRequestResolve: {
+			Version:  "1",
+			EventGen: zeroPtrGen[EventChannelUnbanRequestResolve](),
 		},
 	}
 )

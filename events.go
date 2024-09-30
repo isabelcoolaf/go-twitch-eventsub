@@ -188,6 +188,16 @@ type EventChannelModeratorRemove struct {
 	User
 }
 
+type EventChannelVIPAdd struct {
+	Broadcaster
+	User
+}
+
+type EventChannelVIPRemove struct {
+	Broadcaster
+	User
+}
+
 type MaxChannelPointsPerStream struct {
 	IsEnabled bool `json:"is_enabled"`
 	Value     int  `json:"value"`
@@ -230,7 +240,7 @@ type EventChannelChannelPointsCustomRewardUpdate EventChannelChannelPointsCustom
 
 type EventChannelChannelPointsCustomRewardRemove EventChannelChannelPointsCustomRewardAdd
 
-type ChannelPointReward struct {
+type CustomChannelPointReward struct {
 	ID     string `json:"id"`
 	Title  string `json:"title"`
 	Cost   int    `json:"cost"`
@@ -241,14 +251,36 @@ type EventChannelChannelPointsCustomRewardRedemptionAdd struct {
 	Broadcaster
 	User
 
-	ID         string             `json:"id"`
-	UserInput  string             `json:"user_input"`
-	Status     string             `json:"status"`
-	Reward     ChannelPointReward `json:"reward"`
-	RedeemedAt time.Time          `json:"redeemed_at"`
+	ID         string                   `json:"id"`
+	UserInput  string                   `json:"user_input"`
+	Status     string                   `json:"status"`
+	Reward     CustomChannelPointReward `json:"reward"`
+	RedeemedAt time.Time                `json:"redeemed_at"`
 }
 
 type EventChannelChannelPointsCustomRewardRedemptionUpdate EventChannelChannelPointsCustomRewardRedemptionAdd
+
+type AutomaticChannelPointRewardUnlockedEmote struct {
+	ID   string `json:"id"`
+	Name string `json:"name"`
+}
+
+type AutomaticChannelPointReward struct {
+	Type          string                                    `json:"type"`
+	Cost          int                                       `json:"cost"`
+	UnlockedEmote *AutomaticChannelPointRewardUnlockedEmote `json:"unlocked_emote"`
+}
+
+type EventChannelChannelPointsAutomaticRewardRedemptionAdd struct {
+	Broadcaster
+	User
+
+	ID         string                      `json:"id"`
+	Reward     AutomaticChannelPointReward `json:"reward"`
+	Message    Message                     `json:"message"`
+	UserInput  string                      `json:"user_input"`
+	RedeemedAt time.Time                   `json:"redeemed_at"`
+}
 
 type PollChoice struct {
 	ID                string `json:"id"`
@@ -546,4 +578,48 @@ type EventChannelModerate struct {
 	SharedChatTimeout   *Timeout        `json:"shared_chat_timeout,omitempty"`
 	SharedChatUntimeout *User           `json:"shared_chat_untimeout,omitempty"`
 	SharedChatDelete    *DeletedMessage `json:"shared_chat_delete,omitempty"`
+}
+
+type EventChannelAdBreakBegin struct {
+	Broadcaster
+
+	DurationSeconds    int       `json:"duration_seconds"`
+	StartedAt          time.Time `json:"started_at"`
+	IsAutomatic        bool      `json:"is_automatic"`
+	RequesterUserId    string    `json:"requester_user_id"`
+	RequesterUserLogin string    `json:"requester_user_login"`
+	RequesterUserName  string    `json:"requester_user_name"`
+}
+
+type EventChannelWarningAcknowledge struct {
+	Broadcaster
+	User
+}
+
+type EventChannelWarningSend struct {
+	Broadcaster
+	Moderator
+	User
+
+	Reason         string   `json:"reason"`
+	ChatRulesCited []string `json:"chat_rules_cited"`
+}
+
+type EventChannelUnbanRequestCreate struct {
+	Broadcaster
+	User
+
+	Id        string    `json:"id"`
+	Text      string    `json:"text"`
+	CreatedAt time.Time `json:"created_at"`
+}
+
+type EventChannelUnbanRequestResolve struct {
+	Broadcaster
+	Moderator
+	User
+
+	Id             string `json:"id"`
+	ResolutionText string `json:"resolution_text"`
+	Status         string `json:"status"`
 }
