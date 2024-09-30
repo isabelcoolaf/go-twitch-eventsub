@@ -544,6 +544,6 @@ type EventChannelModerate struct {
 	SharedChatBan       *Ban            `json:"shared_chat_ban,omitempty"`
 	SharedChatUnban     *User           `json:"shared_chat_unban,omitempty"`
 	SharedChatTimeout   *Timeout        `json:"shared_chat_timeout,omitempty"`
-	SharedChatuntimeout *User           `json:"shared_chat_untimeout,omitempty"`
+	SharedChatUntimeout *User           `json:"shared_chat_untimeout,omitempty"`
 	SharedChatDelete    *DeletedMessage `json:"shared_chat_delete,omitempty"`
 }
