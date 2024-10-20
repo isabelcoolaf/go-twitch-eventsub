@@ -109,6 +109,8 @@ var (
 
 	SubUserWhisperMessage EventSubscription = "user.whisper.message"
 
+	SubConduitShardDisabled EventSubscription = "conduit.shard.disabled"
+
 	subMetadata = map[EventSubscription]subscriptionMetadata{
 		SubChannelUpdate: {
 			Version:  "2",
@@ -397,6 +399,10 @@ var (
 		SubUserWhisperMessage: {
 			Version:  "1",
 			EventGen: zeroPtrGen[EventUserWhisperMessage](),
+		},
+		SubConduitShardDisabled: {
+			Version:  "1",
+			EventGen: zeroPtrGen[EventConduitShardDisabled](),
 		},
 	}
 )

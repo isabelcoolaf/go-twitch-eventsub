@@ -803,3 +803,13 @@ func TestEventUserWhisperMessage(t *testing.T) {
 		})
 	}, twitch.SubUserWhisperMessage)
 }
+
+func TestEventConduitShardDisabled(t *testing.T) {
+	t.Parallel()
+
+	assertSpecificEventOccured(t, func(client *twitch.Client, ch chan struct{}) {
+		client.OnEventConduitShardDisabled(func(event twitch.EventConduitShardDisabled) {
+			close(ch)
+		})
+	}, twitch.SubConduitShardDisabled)
+}

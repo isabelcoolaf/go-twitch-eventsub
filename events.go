@@ -977,3 +977,17 @@ type EventUserWhisperMessage struct {
 	WhisperId     string      `json:"whisper_id"`
 	Whisper       UserWhisper `json:"whisper"`
 }
+
+type ConduitTransport struct {
+	Method         string    `json:"method"`
+	SessionId      string    `json:"session_id"`
+	ConnectedAt    time.Time `json:"connected_at"`
+	DisconnectedAt time.Time `json:"disconnected_at"`
+}
+
+type EventConduitShardDisabled struct {
+	ConduitId string           `json:"conduit_id"`
+	ShardId   string           `json:"shard_id"`
+	Status    string           `json:"status"`
+	Transport ConduitTransport `json:"transport"`
+}
