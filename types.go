@@ -5,6 +5,11 @@ import (
 	"time"
 )
 
+type PayloadContext struct {
+	Metadata     MessageMetadata
+	Subscription PayloadSubscription
+}
+
 type MessageMetadata struct {
 	MessageID        string    `json:"message_id"`
 	MessageType      string    `json:"message_type"`
@@ -34,10 +39,10 @@ type SubscriptionRequest struct {
 type PayloadSubscription struct {
 	SubscriptionRequest
 
-	ID       string    `json:"id"`
-	Status   string    `json:"status"`
-	Cost     int       `json:"cost"`
-	CreateAt time.Time `json:"created_at"`
+	ID        string    `json:"id"`
+	Status    string    `json:"status"`
+	Cost      int       `json:"cost"`
+	CreatedAt time.Time `json:"created_at"`
 }
 
 type WelcomeMessage struct {

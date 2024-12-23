@@ -54,9 +54,9 @@ func getTestEventData(eventType twitch.EventSubscription, suffixes ...string) me
 							SessionID: "",
 						},
 					},
-					Status:   "enabled",
-					Cost:     1,
-					CreateAt: time.Now(),
+					Status:    "enabled",
+					Cost:      1,
+					CreatedAt: time.Now(),
 				},
 			},
 		})
@@ -193,7 +193,7 @@ func newClient(t *testing.T, gen messageDataGenerator) *twitch.Client {
 	client.OnError(func(err error) {
 		t.Fatalf("client registered an error: %v", err)
 	})
-	client.OnWelcome(func(message twitch.WelcomeMessage) {})
+	client.OnWelcome(func(message twitch.WelcomeMessage, _ twitch.MessageMetadata) {})
 
 	return client
 }
@@ -201,7 +201,7 @@ func newClient(t *testing.T, gen messageDataGenerator) *twitch.Client {
 func newClientWithWelcome(t *testing.T, version string, event twitch.EventSubscription, gen messageDataGenerator) *twitch.Client {
 	client := newClient(t, gen)
 
-	client.OnWelcome(func(message twitch.WelcomeMessage) {
+	client.OnWelcome(func(message twitch.WelcomeMessage, _ twitch.MessageMetadata) {
 		_, err := twitch.SubscribeEventUrl(twitch.SubscribeRequest{
 			SessionID:       message.Payload.Session.ID,
 			ClientID:        "",

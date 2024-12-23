@@ -106,7 +106,7 @@ func TestOnClose(t *testing.T) {
 	t.Parallel()
 	client := newClient(t, noDataGen)
 
-	client.OnWelcome(func(message twitch.WelcomeMessage) {
+	client.OnWelcome(func(message twitch.WelcomeMessage, _ twitch.MessageMetadata) {
 		go func() {
 			time.Sleep(50 * time.Millisecond)
 			client.Close()
@@ -134,7 +134,7 @@ func TestOnKeepAlive(t *testing.T) {
 
 	assertEventOccured(t, func(ch chan struct{}) {
 		client := newClient(t, keepAliveGen)
-		client.OnKeepAlive(func(message twitch.KeepAliveMessage) {
+		client.OnKeepAlive(func(message twitch.KeepAliveMessage, _ twitch.MessageMetadata) {
 			close(ch)
 		})
 
@@ -160,7 +160,7 @@ func TestOnRevoke(t *testing.T) {
 
 	assertEventOccured(t, func(ch chan struct{}) {
 		client := newClient(t, revokeGen)
-		client.OnRevoke(func(message twitch.RevokeMessage) {
+		client.OnRevoke(func(message twitch.RevokeMessage, _ twitch.MessageMetadata) {
 			close(ch)
 		})
 
@@ -210,13 +210,13 @@ func TestReconnectEvent(t *testing.T) {
 	client := newClient(t, genReconnectGen(reconnectUrl, revokeGen))
 
 	var keepAliveOccured bool
-	client.OnKeepAlive(func(message twitch.KeepAliveMessage) {
+	client.OnKeepAlive(func(message twitch.KeepAliveMessage, _ twitch.MessageMetadata) {
 		keepAliveOccured = true
 		client.Close()
 	})
 
 	var revokeOccured bool
-	client.OnRevoke(func(message twitch.RevokeMessage) { revokeOccured = true })
+	client.OnRevoke(func(message twitch.RevokeMessage, _ twitch.MessageMetadata) { revokeOccured = true })
 
 	err = client.Connect()
 	assert.NoError(t, err)
