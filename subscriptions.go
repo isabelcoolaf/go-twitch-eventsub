@@ -333,7 +333,7 @@ var (
 			EventGen: zeroPtrGen[EventAutomodMessageHold](),
 		},
 		SubAutomodMessageUpdate: {
-			Version:  "1",
+			Version:  "2",
 			EventGen: zeroPtrGen[EventAutomodMessageUpdate](),
 		},
 		SubAutomodSettingsUpdate: {

@@ -1159,31 +1159,55 @@
         "held_at": "2022-12-02T15:00:00.00Z"
     },
     "automod.message.update": {
-        "broadcaster_user_id": "1234",
-        "broadcaster_user_login": "broadcaster",
-        "broadcaster_user_name": "broadcaster",
-        "user_id": "4321",
-        "user_login": "bad-user",
-        "user_name": "bad-user",
-        "moderator_user_id": "85749836",
-        "moderator_user_login": "isabelcoolaf",
-        "moderator_user_name": "isabelcoolaf",
-        "message_id": "message-id",
+        "broadcaster_user_id": "1337",
+        "broadcaster_user_login": "blah",
+        "broadcaster_user_name": "blahblah",
+        "moderator_user_id": "9001",
+        "moderator_user_login": "the_mod",
+        "moderator_user_name": "The_Mod",
+        "user_id": "4242",
+        "user_login": "baduser",
+        "user_name": "badbaduser",
+        "message_id": "bad-message-id",
         "message": {
-            "text": "This is a bad message...",
+            "text": "This is a bad message… pogchamp",
             "fragments": [
                 {
                     "type": "text",
-                    "text": "This is a bad message...",
+                    "text": "This is a bad message… ",
                     "cheermote": null,
+                    "emote": null
+                },
+                {
+                    "type": "cheermote",
+                    "text": "pogchamp",
+                    "cheermote": {
+                        "prefix": "pogchamp",
+                        "bits": 1000,
+                        "tier": 1
+                    },
                     "emote": null
                 }
             ]
         },
-        "category": "namecalling",
-        "level": 2,
+        "reason": "automod",
+        "automod": null,
+        "blocked_term": {
+            "terms_found": [
+                {
+                    "term_id": "123",
+                    "owner_broadcaster_user_id": "1337",
+                    "owner_broadcaster_user_login": "blah",
+                    "owner_broadcaster_user_name": "blahblah",
+                    "boundary": {
+                        "start_pos": 0,
+                        "end_pos": 30
+                    }
+                }
+            ]
+        },
         "status": "approved",
-        "held_at": "2024-09-29T21:06:15.199609857Z"
+        "held_at": "2022-12-02T15:00:00.00Z"
     },
     "automod.settings.update": {
         "broadcaster_user_id": "1337",

@@ -675,13 +675,13 @@ type TermBoundary struct {
 	EndPos   int `json:"end_pos"`
 }
 
-type AutomodMessageHoldAutomod struct {
+type AutomodMessageAutomod struct {
 	Category   string         `json:"category"`
 	Level      int            `json:"level"`
 	Boundaries []TermBoundary `json:"boundaries"`
 }
 
-type AutomodMessageHoldTermsFound struct {
+type AutomodMessageTermsFound struct {
 	TermId                    string       `json:"term_id"`
 	Boundary                  TermBoundary `json:"boundary"`
 	OwnerBroadcasterUserId    string       `json:"owner_broadcaster_user_id"`
@@ -689,20 +689,20 @@ type AutomodMessageHoldTermsFound struct {
 	OwnerBroadcasterUserName  string       `json:"owner_broadcaster_user_name"`
 }
 
-type AutomodMessageHoldBlockedTerm struct {
-	TermsFound []AutomodMessageHoldTermsFound `json:"terms_found"`
+type AutomodMessageBlockedTerm struct {
+	TermsFound []AutomodMessageTermsFound `json:"terms_found"`
 }
 
 type EventAutomodMessageHold struct {
 	Broadcaster
 	User
 
-	MessageId   string                         `json:"message_id"`
-	Message     ChatMessage                    `json:"message"`
-	HeldAt      time.Time                      `json:"held_at"`
-	Reason      string                         `json:"reason"`
-	Automod     *AutomodMessageHoldAutomod     `json:"automod"`
-	BlockedTerm *AutomodMessageHoldBlockedTerm `json:"blocked_term"`
+	MessageId   string                     `json:"message_id"`
+	Message     ChatMessage                `json:"message"`
+	HeldAt      time.Time                  `json:"held_at"`
+	Reason      string                     `json:"reason"`
+	Automod     *AutomodMessageAutomod     `json:"automod"`
+	BlockedTerm *AutomodMessageBlockedTerm `json:"blocked_term"`
 }
 
 type EventAutomodMessageUpdate struct {
@@ -710,12 +710,13 @@ type EventAutomodMessageUpdate struct {
 	User
 	Moderator
 
-	MessageId string      `json:"message_id"`
-	Message   ChatMessage `json:"message"`
-	Level     int         `json:"level"`
-	Category  string      `json:"category"`
-	Status    string      `json:"status"`
-	HeldAt    time.Time   `json:"held_at"`
+	MessageId   string                     `json:"message_id"`
+	Message     ChatMessage                `json:"message"`
+	Status      string                     `json:"status"`
+	HeldAt      time.Time                  `json:"held_at"`
+	Reason      string                     `json:"reason"`
+	Automod     *AutomodMessageAutomod     `json:"automod"`
+	BlockedTerm *AutomodMessageBlockedTerm `json:"blocked_term"`
 }
 
 type EventAutomodSettingsUpdate struct {
