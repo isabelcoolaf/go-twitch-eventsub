@@ -329,7 +329,7 @@ var (
 			EventGen: zeroPtrGen[EventChannelUnbanRequestResolve](),
 		},
 		SubAutomodMessageHold: {
-			Version:  "1",
+			Version:  "2",
 			EventGen: zeroPtrGen[EventAutomodMessageHold](),
 		},
 		SubAutomodMessageUpdate: {

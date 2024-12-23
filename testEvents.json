@@ -1113,26 +1113,50 @@
     },
     "automod.message.hold": {
         "broadcaster_user_id": "1337",
-        "broadcaster_user_login": "broadcaster",
-        "broadcaster_user_name": "broadcaster",
-        "user_id": "85749836",
-        "user_login": "isabelcoolaf",
-        "user_name": "isabelcoolaf",
-        "message_id": "message-id",
+        "broadcaster_user_login": "blah",
+        "broadcaster_user_name": "blahblah",
+        "user_id": "4242",
+        "user_login": "baduser",
+        "user_name": "badbaduser",
+        "message_id": "bad-message-id",
         "message": {
-            "text": "This is a bad message...",
+            "text": "This is a bad message… pogchamp",
             "fragments": [
                 {
                     "type": "text",
-                    "text": "This is a bad message...",
+                    "text": "This is a bad message… ",
                     "cheermote": null,
+                    "emote": null
+                },
+                {
+                    "type": "cheermote",
+                    "text": "pogchamp",
+                    "cheermote": {
+                        "prefix": "pogchamp",
+                        "bits": 1000,
+                        "tier": 1
+                    },
                     "emote": null
                 }
             ]
         },
-        "category": "namecalling",
-        "level": 2,
-        "held_at": "2024-09-29T20:33:48.641725498Z"
+        "reason": "automod",
+        "automod": {
+            "category": "aggressive",
+            "level": 1,
+            "boundaries": [
+                {
+                    "start_pos": 0,
+                    "end_pos": 10
+                },
+                {
+                    "start_pos": 20,
+                    "end_pos": 30
+                }
+            ]
+        },
+        "blocked_term": null,
+        "held_at": "2022-12-02T15:00:00.00Z"
     },
     "automod.message.update": {
         "broadcaster_user_id": "1234",

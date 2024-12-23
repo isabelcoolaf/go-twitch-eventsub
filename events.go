@@ -670,15 +670,39 @@ type ChatMessage struct {
 	Fragments []ChatMessageFragment `json:"fragments"`
 }
 
+type TermBoundary struct {
+	StartPos int `json:"start_pos"`
+	EndPos   int `json:"end_pos"`
+}
+
+type AutomodMessageHoldAutomod struct {
+	Category   string         `json:"category"`
+	Level      int            `json:"level"`
+	Boundaries []TermBoundary `json:"boundaries"`
+}
+
+type AutomodMessageHoldTermsFound struct {
+	TermId                    string       `json:"term_id"`
+	Boundary                  TermBoundary `json:"boundary"`
+	OwnerBroadcasterUserId    string       `json:"owner_broadcaster_user_id"`
+	OwnerBroadcasterUserLogin string       `json:"owner_broadcaster_user_login"`
+	OwnerBroadcasterUserName  string       `json:"owner_broadcaster_user_name"`
+}
+
+type AutomodMessageHoldBlockedTerm struct {
+	TermsFound []AutomodMessageHoldTermsFound `json:"terms_found"`
+}
+
 type EventAutomodMessageHold struct {
 	Broadcaster
 	User
 
-	MessageId string      `json:"message_id"`
-	Message   ChatMessage `json:"message"`
-	Level     int         `json:"level"`
-	Category  string      `json:"category"`
-	HeldAt    time.Time   `json:"held_at"`
+	MessageId   string                         `json:"message_id"`
+	Message     ChatMessage                    `json:"message"`
+	HeldAt      time.Time                      `json:"held_at"`
+	Reason      string                         `json:"reason"`
+	Automod     *AutomodMessageHoldAutomod     `json:"automod"`
+	BlockedTerm *AutomodMessageHoldBlockedTerm `json:"blocked_term"`
 }
 
 type EventAutomodMessageUpdate struct {
