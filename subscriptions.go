@@ -414,6 +414,7 @@ type subscriptionMetadata struct {
 
 type SubscribeRequest struct {
 	SessionID       string
+	ConduitID       string
 	ClientID        string
 	AccessToken     string
 	VersionOverride string
@@ -447,15 +448,24 @@ func SubscribeEventUrlWithContext(ctx context.Context, request SubscribeRequest,
 		version = request.VersionOverride
 	}
 
-	b, err := json.Marshal(SubscriptionRequest{
+	data := SubscriptionRequest{
 		Type:      request.Event,
 		Version:   version,
 		Condition: request.Condition,
-		Transport: SubscriptionTransport{
+	}
+	if request.ConduitID != "" {
+		data.Transport = SubscriptionTransport{
+			Method:    "conduit",
+			ConduitID: request.ConduitID,
+		}
+	} else {
+		data.Transport = SubscriptionTransport{
 			Method:    "websocket",
 			SessionID: request.SessionID,
-		},
-	})
+		}
+	}
+
+	b, err := json.Marshal(data)
 	if err != nil {
 		return SubscribeResponse{}, fmt.Errorf("could not convert request to json: %w", err)
 	}

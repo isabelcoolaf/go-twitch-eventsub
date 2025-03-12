@@ -27,6 +27,7 @@ type PayloadSession struct {
 type SubscriptionTransport struct {
 	Method    string `json:"method"`
 	SessionID string `json:"session_id"`
+	ConduitID string `json:"conduit_id"`
 }
 
 type SubscriptionRequest struct {
